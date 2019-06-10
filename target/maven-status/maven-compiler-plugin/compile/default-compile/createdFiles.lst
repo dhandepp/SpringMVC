@@ -1,1 +1,5 @@
+com\services\OwnerService.class
+com\controllers\OwnerController.class
+com\model\Owner.class
+com\services\OwnerServiceImpl.class
 com\controllers\Welcome.class
