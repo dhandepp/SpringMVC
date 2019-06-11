@@ -8,6 +8,13 @@
     <context:component-scan base-package="com.services" />
     <context:component-scan base-package="com.model" />
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/owners"/>
+            <bean class="com.controllers.OwnerHandlerInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <bean
             class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix">
