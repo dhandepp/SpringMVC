@@ -3,11 +3,9 @@ package com.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.stereotype.Repository;
 
-@Repository
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties({})
+//@JsonInclude(JsonInclude.Include.NON_NULL)
+//@JsonIgnoreProperties({})
 public class Owner {
     @JsonProperty("name")
     private String name;

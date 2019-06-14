@@ -1,6 +1,8 @@
 package com.services;
 
+import com.dao.OwnerDAO;
 import com.model.Owner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -8,6 +10,10 @@ import java.util.List;
 
 @Service
 public class OwnerServiceImpl implements OwnerService {
+
+    @Autowired
+    OwnerDAO dao;
+
     List<Owner> owners = new ArrayList<Owner>();
 
     public List<Owner> get() {
@@ -28,7 +34,7 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     public Owner create(Owner owner) {
-        owners.add(owner);
+        dao.save(owner);
         return owner;
     }
 

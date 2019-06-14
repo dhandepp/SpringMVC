@@ -1,5 +1,7 @@
 com\services\OwnerService.class
-com\controllers\OwnerController.class
-com\model\Owner.class
 com\services\OwnerServiceImpl.class
+com\dao\OwnerDAO.class
+com\controllers\OwnerController.class
+com\controllers\OwnerHandlerInterceptor.class
+com\model\Owner.class
 com\controllers\Welcome.class

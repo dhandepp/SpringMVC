@@ -7,6 +7,7 @@
     <context:component-scan base-package="com.controllers" />
     <context:component-scan base-package="com.services" />
     <context:component-scan base-package="com.model" />
+    <context:component-scan base-package="com.dao" />
 
     <mvc:interceptors>
         <mvc:interceptor>
@@ -26,4 +27,16 @@
     </bean>
     <mvc:annotation-driven/>
 
+    <bean id="ds"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://localhost:5432/scm" />
+        <property name="username" value="postgres" />
+        <property name="password" value="root" />
+    </bean>
+
+
+    <bean id="template" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="ds"></property>
+    </bean>
 </beans>
