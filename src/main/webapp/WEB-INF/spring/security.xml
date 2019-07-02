@@ -31,14 +31,15 @@
         <security:intercept-url pattern="/login"
                                 access="permitAll"/>
         <security:intercept-url
-                pattern="/**"
+                pattern="/**"           <!-- All users must have ROLE USER -->
                 access="hasRole('ROLE_USER')"/>
-        <security:form-login/>
+        <security:form-login/>          <!-- If user is not logged in, require to login using form-login -->
         <!-- <security:form-login login-page="/login"
             authentication-failure-url="/login?error"/> -->
         <security:logout logout-success-url="/login?logout"/>
     </security:http>
 
+    <!-- Once login credentials are passed, authenticationManager would validate those credentials -->
     <security:authentication-manager alias="authenticationManager">
         <security:authentication-provider>
             <security:user-service>

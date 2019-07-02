@@ -3,19 +3,42 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-  <!-- Loads Spring Security config file -->
+  <!-- Loads Spring Security config file
+  -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>
       /WEB-INF/spring/*.xml
     </param-value>
   </context-param>
+
+  <!--
+  ContextLoaderListener creates Spring ApplicationContext using the spring configurations i.e. value of contextConfigLocation
+  -->
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener
     </listener-class>
   </listener>
 
-  <!-- Spring Security -->
+  <!-- Spring Security
+   DelegatingFilterProxy-> (Spring) FilterChainProxy-> ...... ->
+   ExceptionTranslationFilter
+   SecurityFilterInterceptor ->
+                                1> Looks at the security config, sends AccessDeniedException if wrong creds
+                                the exception is handled in
+                                2> ExceptionTranslationFilter, it saves HttpServletRequest object inside cache
+                                3> sends redirect 302 to spring_security_login
+                                4>  again filter chain starts and reaches to DefaultLoginPageGeneratingFilter, and writes login page
+                                5> 'POST /j_spring_security_check', -d 'j_username' and 'j_password'
+                                6> again filter chain, UsernamePasswordAuthenticationFilter,
+                                uses AuthenticationManager from security
+                                and UPwdAuthFilter puts user object received from authmanager and places it in
+                                SecurityContextHolder, which is always referred for current logged in user
+                                Fundamental thing for authenticating the user is setting the SecurityContextHolder
+                                7> Redirect to the saved request in cache
+                                8> When SecurityContextHolder is updated, SecurityContextPersistenceFilter is in charge to update
+                                HttpSession and clears SecurityContextHolder
+   -->
   <filter>
     <filter-name>springSecurityFilterChain</filter-name>
     <filter-class>org.springframework.web.filter.DelegatingFilterProxy
